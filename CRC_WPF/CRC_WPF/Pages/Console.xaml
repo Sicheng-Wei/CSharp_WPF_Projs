@@ -1,0 +1,256 @@
+﻿<Page x:Class="CRC_WPF.Console"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRC_WPF"
+      mc:Ignorable="d" 
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      Title="Console">
+    
+    <!-- ShortCuts -->
+    <Page.Resources>
+        <RoutedUICommand x:Key="CLEAR"/>
+        <RoutedUICommand x:Key="UPLOAD"/>
+        <RoutedUICommand x:Key="ENCODE"/>
+        <RoutedUICommand x:Key="TRANSMIT"/>
+    </Page.Resources>
+    <Page.CommandBindings>
+        <CommandBinding Command="{StaticResource CLEAR}" Executed="Clear_F4Pressed"/>
+        <CommandBinding Command="{StaticResource UPLOAD}" Executed="Upload_F5Pressed"/>
+        <CommandBinding Command="{StaticResource ENCODE}" Executed="Encode_F6Pressed"/>
+        <CommandBinding Command="{StaticResource TRANSMIT}" Executed="Transmit_F7Pressed"/>
+    </Page.CommandBindings>
+    <Page.InputBindings>
+        <KeyBinding Gesture="F4" Command="{StaticResource CLEAR}"/>
+        <KeyBinding Gesture="F5" Command="{StaticResource UPLOAD}"/>
+        <KeyBinding Gesture="F6" Command="{StaticResource ENCODE}"/>
+        <KeyBinding Gesture="F7" Command="{StaticResource TRANSMIT}"/>
+    </Page.InputBindings>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.0*"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="1.0*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Sender Row -->
+        <Border Grid.Row="0" Background="#5d6b99">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="3.0*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Sender Console -->
+                <Border Grid.Row="0" Background="#94a6ca">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="3.0*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Sender" Margin="0, 2, 0, 0" Padding="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0, 2, 0, 0">
+                            <TextBlock Text="Input Format: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <ComboBox x:Name="InputFormat" FontSize="12" Foreground="#545454"
+                                      Width="120" BorderBrush="#94a6ca" BorderThickness="2" VerticalContentAlignment="Center"
+                                      Padding="7,0,0,0" IsEditable="False" SelectedIndex="2">
+                                <ComboBoxItem Content="Binary Code" Padding="7,0,0,0"/>
+                                <ComboBoxItem Content="String (ASCII)" Padding="7,0,0,0"/>
+                                <ComboBoxItem Content="String (Unicode)" Padding="7,0,0,0"/>
+                            </ComboBox>
+                            <TextBlock Text="      CRC Type: " VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <ComboBox x:Name="CRCType" FontSize="12" Foreground="#545454"
+                                      Width="80" BorderBrush="#94a6ca" BorderThickness="2" VerticalContentAlignment="Center"
+                                      Padding="7,0,0,0" IsEditable="False" SelectedIndex="2">
+                                <ComboBoxItem Content="CRC-4" Padding="7,0,0,0"/>
+                                <ComboBoxItem Content="CRC-5" Padding="7,0,0,0"/>
+                                <ComboBoxItem Content="CRC-16" Padding="7,0,0,0"/>
+                            </ComboBox>
+                            <Button x:Name="Btn_Clear" Content="CLEAR (F4)" Style="{StaticResource Button_Func}" Margin="15, 0, 0, 0" 
+                                    Click="Clear_AllClick" Command="{StaticResource CLEAR}" Foreground="#945357"/>
+                            <Button x:Name="Btn_Upload" Content="UPLOAD (F5)" Style="{StaticResource Button_Func}" Margin="5, 0, 5, 0" 
+                                    Click="Input_UploadClick" Command="{StaticResource UPLOAD}"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <!-- Message Input -->
+                <Grid Grid.Row="1" Background="#d5d6d9"/>
+                <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1" Background="#ffffff" Margin="1">
+                    <TextBox x:Name="SenderInformation" Text="{Binding SearchInfo, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="20, 20, 20, 20" TextWrapping="Wrap" AcceptsReturn="True" BorderBrush="#ffffff">
+                        <TextBox.Resources>
+                            <VisualBrush x:Key="HintText" TileMode="Tile" Opacity="0.5" Stretch="None" AlignmentX="Left" AlignmentY="Top">
+                                <VisualBrush.Visual>
+                                    <TextBlock FontStyle="Normal" Text="   Enter Message in This Box" Background="#ffffff" Padding="0, 2, 0, 0"  AllowDrop="True"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="{StaticResource HintText}"/>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+
+        <!-- Transmission Row -->
+        <Border Grid.Row="1" Background="#5d6b99">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3.0*"/>
+                    <ColumnDefinition Width="1.0*"/>
+                    <ColumnDefinition Width="3.0*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Encode -->
+                <Border Grid.Column="0" Background="#5d6b99" Margin="0, 4, 2, 4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Dock -->
+                        <Border Grid.Row="0" Background="#94a6ca">
+                            <TextBlock Text="CRC Encoder [HEX]" Margin="0, 2, 0, 0" Padding="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Border>
+                        <Border Grid.Row="0">
+                            <Button x:Name="Btn_Encode" Content="ENCODE (F6)" Style="{StaticResource Button_Func}" Margin="0, 2, 5, 1" 
+                                    Click="With_EncodeClick" Command="{StaticResource ENCODE}" HorizontalAlignment="Right"/>
+                        </Border>
+                        
+                        <!-- Content -->
+                        <Grid Grid.Row="1" Background="#d5d6d9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.0*"/>
+                                <ColumnDefinition Width="1.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer x:Name="Encode_1" VerticalScrollBarVisibility="Visible" Grid.Column="0" Margin="1, 1, 0.5, 1">
+                                <TextBlock x:Name="HexString" Background="#ffffff" Padding="20, 10, 20, 10"
+                                       TextWrapping="Wrap" TextAlignment="Left" FontFamily="Courier New"/>
+                            </ScrollViewer>
+                            <ScrollViewer x:Name="Encode_2" VerticalScrollBarVisibility="Visible" Grid.Column="1" Margin="0.5, 1, 1, 1">
+                                <TextBlock x:Name="EncodedHex" Background="#ffffff" Padding="20, 10, 20, 10"
+                                       TextWrapping="Wrap" TextAlignment="Left" FontFamily="Courier New"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!-- Transmission -->
+                <Border Grid.Column="1" Background="#5d6b99" Margin="2, 4, 2, 4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="#94a6ca">
+                            <TextBlock Text="Transmit Loss" Margin="0, 2, 0, 0" Padding="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Border>
+                        <Border Grid.Row="1" Background="#ffffff">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="3.0*"/>
+                                    <RowDefinition Height="1.5*"/>
+                                    <RowDefinition Height="1.0*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <!-- Loss Rate Plot -->
+                                <Border Grid.Row="0" Margin="20, 20, 20, 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.0*"/>
+                                            <ColumnDefinition Width="1.0*"/>
+                                            <ColumnDefinition Width="1.0*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" BorderBrush="#5d6b99" BorderThickness="2, 2, 0, 2">
+                                            <TextBlock x:Name="LossTen" FontSize="40" FontWeight="Bold" Foreground="#000000" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0"/>
+                                        </Border>
+                                        <Border Grid.Column="1" BorderBrush="#5d6b99" BorderThickness="2, 2, 2, 2">
+                                            <TextBlock x:Name="LossOne" FontSize="40" FontWeight="Bold" Foreground="#000000" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0"/>
+                                        </Border>
+                                        <Border Grid.Column="2">
+                                            <TextBlock FontSize="25" FontWeight="Bold" Padding="4" Text="‰" Foreground="#5d6b99"
+                                                       HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <!-- Slider -->
+                                <Border Grid.Row="1">
+                                    <Slider x:Name="LossSlider"  Maximum="99" TickFrequency="1" IsSnapToTickEnabled="True" 
+                                    Margin="0,0" Width="120" Height="20" HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center" Thumb.DragDelta="Loss_SliderDrag" Value="0"></Slider>
+                                </Border>
+
+                                <!-- Transmit Button -->
+                                <Border Grid.Row="2" Margin="30, 0, 30, 10">
+                                    <Button x:Name="Btn_Transmit" Style="{StaticResource Button_Trans}" Content="TRANSMIT (F7)"
+                                            Click="With_TransmitClick" Command="{StaticResource TRANSMIT}" FontSize="12"/>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Decode -->
+                <Border Grid.Column="2" Background="#5d6b99" Margin="2, 4, 0, 4">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.5*"/>
+                            <RowDefinition Height="3.5*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Dock -->
+                        <Border Grid.Row="0" Background="#94a6ca">
+                            <TextBlock Text="CRC Decoder [HEX]" Margin="0, 2, 0, 0" Padding="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                        </Border>
+                        <Border Grid.Row="0"/>
+
+                        <!-- Content -->
+                        <Grid Grid.Row="1" Background="#d5d6d9">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.2*"/>
+                                <ColumnDefinition Width="1.0*"/>
+                            </Grid.ColumnDefinitions>
+                            <ScrollViewer x:Name="Decode_1" VerticalScrollBarVisibility="Visible" Grid.Column="0" Margin="1, 1, 0.5, 1">
+                                <TextBlock x:Name="HexReceive" Background="#ffffff" Padding="20, 10, 20, 10"
+                                       TextWrapping="Wrap" TextAlignment="Left" FontFamily="Courier New"/>
+                            </ScrollViewer>
+                            <ScrollViewer x:Name="Decode_2" VerticalScrollBarVisibility="Visible" Grid.Column="1" Margin="0.5, 1, 1, 1">
+                                <TextBlock x:Name="OriginHex" Background="#ffffff" Padding="20, 10, 20, 10"
+                                       TextWrapping="Wrap" TextAlignment="Left" FontFamily="Courier New"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Receiver Row -->
+        <Border Grid.Row="2" Background="#5d6b99">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="3.0*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="#94a6ca">
+                    <TextBlock Text="Receiver" Margin="0, 2, 0, 0" Padding="10,0,0,0" VerticalAlignment="Center" FontWeight="Bold"/>
+                </Border>
+                <Border Grid.Row="1" Background="#d5d6d9">
+                    <ScrollViewer x:Name="Download" VerticalScrollBarVisibility="Visible" Margin="1">
+                        <TextBlock x:Name="DownText" Background="#d5d6d9" Padding="20, 20, 20, 20"
+                                       TextWrapping="Wrap" TextAlignment="Left"/>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

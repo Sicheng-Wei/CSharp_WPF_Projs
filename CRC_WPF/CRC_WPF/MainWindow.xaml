@@ -1,0 +1,96 @@
+﻿<!--
+    Coder & Implementation: Sicheng Wei
+    Date: 2022/3/30
+    Email: 2495665501@qq.com
+           sichengwei@hust.edu.cn (expired in 2023)
+    Supervisor: Junfeng Ge
+    Institution: Huazhong University of Science and Technology
+    
+    UI Reference: Microsoft Visual Studio 2022
+    CRC Code Reference: https://gitee.com/anyangchina/crc_all
+-->
+
+<Window x:Class="CRC_WPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    ResizeMode="NoResize"
+    AllowsTransparency="True" WindowStyle="None" Padding="100" WindowStartupLocation="CenterScreen"
+    Height="720"
+    Width="1280"
+    BorderBrush="#525252" BorderThickness="1.5" Background="#5d6b99"
+    MouseLeftButtonDown="Window_MouseLeftButtonDrag"
+    >
+    
+    <!-- General Page -->
+    <Grid>
+
+        <!-- Distribute Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="34"/>
+            <RowDefinition Height="4.0*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Dock -->
+        <Border Grid.Row="0" Background="#ccd5f0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="Btn_Locke" Content="🔒"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickLocke"/>
+                <Button x:Name="Btn_Minim" Content="—"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickMinim"/>
+                <Button x:Name="Btn_Resiz" Content="□" FontSize="16"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickResiz"/>
+                <Button x:Name="Btn_Close" Content="×"
+                    Style="{StaticResource Button_Menu}"
+                    Click="Window_MouseClickClose"/>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text=" " VerticalAlignment="Center"/>
+                <Image Width="22" Height="22" Source="Resources/ico.png"/>
+                <TextBlock Text="  CRC_WPF" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Guide Dock -->
+        <Border Grid.Row="1" Background="#5d6b99">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <Button x:Name="Btn_Console" Content="Console"
+                        FontWeight="ExtraBold" Width="300"
+                        Style="{StaticResource Button_Mode}"
+                        Click="Console_PageClick"/>
+                <Button x:Name="Btn_Author" Content="Author"
+                        Style="{StaticResource Button_Mode}"
+                        Click="Author_PageClick"/>
+                <Button x:Name="Btn_Guide" Content="Guide"
+                        Style="{StaticResource Button_Mode}"
+                        Click="Guide_PageClick"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Function Dock -->
+        <Border x:Name="FuncDock" Grid.Row="2" Background="#5d6b99" Margin="6, 0, 6, 0">
+            <Frame x:Name="Function_Dock" NavigationUIVisibility="Hidden"></Frame>
+        </Border>
+
+        <!-- Buttom Dock -->
+        <Border Grid.Row="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.10*"/>
+                    <RowDefinition Height="0.15*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="#5d6b99"/>
+                <Border Grid.Row="1" Background="#40508d">
+                    <TextBlock Text="★  Designed by Sicheng Wei    " VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="#ffffff"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+
+</Window>

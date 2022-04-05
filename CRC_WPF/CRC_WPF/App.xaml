@@ -1,0 +1,119 @@
+﻿<Application x:Class="CRC_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CRC_WPF"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        
+        <!-- Window Frame Button -->
+        <Style x:Key="Button_Menu" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="45" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#4f5a89"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="新宋体"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="MyBackgroundElement" BorderThickness="0">
+                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MyBackgroundElement" Property="Background" Value="#f8f9ff"/>
+                                <Setter TargetName="MyBackgroundElement" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!-- Mode_Button -->
+        <Style x:Key="Button_Mode" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#ffffff"/>
+            <Setter Property="FontFamily" Value="Solaris"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="MyBackgroundElement" Background="#3b4f81" BorderBrush="#5f6fa4" BorderThickness="1">
+                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MyBackgroundElement" Property="Background" Value="#bbc6f1"/>
+                                <Setter TargetName="MyBackgroundElement" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="MyBackgroundElement" Property="Background" Value="#f5cc84"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <!-- Function Button -->
+        <Style x:Key="Button_Func" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="120" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontFamily" Value="Solaris"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="MyBackgroundElement" Background="#ecf4ff" BorderBrush="#5d6b99" BorderThickness="2">
+                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MyBackgroundElement" Property="Background" Value="#d7e8e8"/>
+                                <Setter TargetName="MyBackgroundElement" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        
+        <!-- Transmission Button -->
+        <Style x:Key="Button_Trans" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Solaris"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="MyBackgroundElement" Background="#efeff2"  BorderThickness="1" BorderBrush="#000000">
+                            <ContentPresenter x:Name="ButtonContentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MyBackgroundElement" Property="Background" Value="#c4d5ff"/>
+                                <Setter TargetName="MyBackgroundElement" Property="Opacity" Value="1.0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        
+    </Application.Resources>
+
+</Application>

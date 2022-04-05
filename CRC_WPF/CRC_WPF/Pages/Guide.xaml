@@ -1,0 +1,17 @@
+﻿<Page x:Class="CRC_WPF.Pages.Guide"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CRC_WPF.Pages"
+      mc:Ignorable="d" 
+      HorizontalAlignment="Stretch"
+      VerticalAlignment="Stretch"
+      Title="Guide">
+
+    <Grid Background="#e7e6e6">
+        <Viewbox>
+            <Image Source="../Resources/Guide.png" Stretch="None" />
+        </Viewbox>
+    </Grid>
+</Page>
